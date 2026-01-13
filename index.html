@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="MO-CO KITCHEN - Sip bold with mo-co">
+    <meta property="og:description" content="Established 2025 | Mbabane, Swaziland. Specializing in beautiful cocktails and mocktails for all occasions.">
+    <meta property="og:image" content="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg">
+    <meta property="og:url" content="https://moco-kitchen.com">
+    <title>MO-CO KITCHEN - Sip bold with mo-co</title>
+    <link rel="icon" href="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" type="image/jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        :root {
+            --primary-color: #ff3366;
+            --primary-dark: #ff0040;
+            --secondary-color: #00c896;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --bg-light: #f9f9f9;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Utility */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+        
+        h1, h2, h3, h4, .logo {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1400px; /* Increased for better wide screen fit */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 12px 0; /* Slightly increased padding */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2.2rem; /* Slightly smaller to fit better */
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            z-index: 1001;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            /* color: var(--primary-color); removed color since it is an image now */
+            /* margin-right: 10px; replaced by gap in parent */
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        .logo-text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.1;
+        }
+
+        .logo-main-text {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+        }
+        
+        .logo-subtitle {
+            font-size: 0.85rem;
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 400;
+            margin-left: 2px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+            color: var(--text-dark);
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .mobile-menu-btn:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        nav ul li {
+            margin-left: 35px; /* Increased spacing */
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Nav Button Style */
+        nav ul li a.nav-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.3);
+            border: 2px solid transparent;
+        }
+
+        nav ul li a.nav-btn:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        nav ul li a.nav-btn::after {
+            display: none; /* No underline for button */
+        }
+        
+        /* Hero Section with Slideshow */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+        }
+        
+        .slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(1200px 600px at 10% 10%, rgba(255, 51, 102, 0.08), transparent 60%),
+                radial-gradient(1000px 500px at 90% 80%, rgba(0, 200, 150, 0.08), transparent 60%),
+                linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.6) 100%);
+            z-index: 2;
+            backdrop-filter: blur(2px);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 0 20px;
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 15px;
+            color: #000;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #ff3366;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
+        }
+        
+        .cta-button:hover {
+            background-color: #ff0040;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.6);
+        }
+        
+        /* 3D Element Container */
+        #three-container {
+            position: absolute;
+            top: 50%;
+            right: 6%;
+            transform: translateY(-50%);
+            width: 460px;
+            height: 460px;
+            z-index: 2;
+        }
+        
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 60px;
+            color: #000;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #ff3366;
+        }
+        
+        /* Cocktails & Mocktails Sections */
+        .drinks-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .drink-card {
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .drink-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .drink-image {
+            height: 220px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .drink-content {
+            padding: 25px;
+        }
+        
+        .drink-name {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .drink-type {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .cocktail-type {
+            background-color: rgba(255, 51, 102, 0.1);
+            color: #ff3366;
+        }
+        
+        .mocktail-type {
+            background-color: rgba(0, 200, 150, 0.1);
+            color: #00c896;
+        }
+        
+        .drink-description {
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .drink-ingredients {
+            font-size: 0.9rem;
+            color: #777;
+            font-style: italic;
+        }
+        
+        /* Bookings Section */
+        .bookings {
+            background-color: #f9f9f9;
+        }
+        
+        .booking-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #ff3366;
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: #ff3366;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 30px auto 0;
+            width: 200px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #ff0040;
+        }
+        
+        /* Recipes Section */
+        .recipes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .recipe-card {
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-top: 5px solid #ff3366;
+        }
+        
+        .recipe-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        
+        .recipe-ingredients, .recipe-steps {
+            margin-bottom: 20px;
+        }
+        
+        .recipe-ingredients h4, .recipe-steps h4 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.2rem;
+        }
+        
+        .recipe-ingredients ul, .recipe-steps ol {
+            padding-left: 20px;
+            color: #555;
+        }
+        
+        .recipe-ingredients li, .recipe-steps li {
+            margin-bottom: 8px;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ff3366;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .about-images {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .about-img:hover {
+            transform: scale(1.03);
+        }
+
+        .about-img.large {
+            grid-column: span 2;
+            height: 300px;
+        }
+
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            .about-images {
+                width: 100%;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000;
+            color: #fff;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .footer-about {
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+        
+        .footer-contact p {
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+        
+        .footer-contact i {
+            color: #ff3366;
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #ff3366;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            #three-container {
+                width: 300px;
+                height: 300px;
+                right: 5%;
+            }
+            
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(15px);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                transition: right 0.4s ease-in-out;
+                z-index: 1000;
+                padding-top: 100px;
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 20px 0;
+            }
+
+            nav ul li a {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                /* Removed flex-direction column to keep logo and hamburger aligned */
+                flex-direction: row; 
+                justify-content: space-between;
+            }
+            
+            .logo {
+                margin-bottom: 0;
+                font-size: 1.8rem;
+            }
+
+            .logo-subtitle {
+                display: none; /* Hide subtitle on small screens */
+            }
+            
+            .hero {
+                margin-top: 80px;
+            }
+            
+            #three-container {
+                position: relative;
+                top: 0;
+                right: 0;
+                transform: none;
+                width: 100%;
+                height: 350px;
+                margin-top: 20px;
+                order: -1; /* Move 3D to top on mobile */
+            }
+
+            .hero {
+                flex-direction: column;
+                height: auto;
+                padding-bottom: 50px;
+            }
+            
+            .hero-content {
+                margin-top: 30px;
+                order: 1;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .drinks-container, .recipes-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-form {
+                padding: 30px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            background-color: #25D366;
+            color: #fff;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            z-index: 1100;
+            text-decoration: none;
+            font-size: 28px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .whatsapp-float:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .loader-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--white);
+            z-index: 1200;
+            display: grid;
+            place-items: center;
+            transition: opacity 0.4s ease;
+        }
+        
+        .loader-content {
+            perspective: 800px;
+        }
+        
+        .loader-logo {
+            width: 140px;
+            height: auto;
+            animation: tiltSpin 1.8s ease-in-out infinite;
+            filter: drop-shadow(0 12px 24px rgba(0,0,0,0.12));
+        }
+        
+        .page-transition {
+            position: fixed;
+            inset: 0;
+            background: #ffffff;
+            z-index: 1300;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        
+        @keyframes tiltSpin {
+            0% { transform: rotateX(0deg) rotateY(0deg) scale(0.96); }
+            50% { transform: rotateX(12deg) rotateY(-12deg) scale(1.04); }
+            100% { transform: rotateX(0deg) rotateY(0deg) scale(0.96); }
+        }
+        
+        .menu-section {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .menu-heading {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            text-align: center;
+            margin: 20px 0 10px;
+        }
+        
+        .menu-block {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            padding: 20px;
+            border: 1px solid rgba(0,0,0,0.06);
+            margin-bottom: 24px;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 1.1rem;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.08);
+        }
+        
+        .menu-actions {
+            display: inline-flex;
+            gap: 8px;
+            margin-left: 12px;
+        }
+        
+        .menu-btn {
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: #fff;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        
+        .menu-btn.add {
+            border-color: #ff3366;
+            color: #ff3366;
+        }
+        
+        .menu-btn.remove {
+            border-color: #ccc;
+            color: #777;
+        }
+        
+        .cart-panel {
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+            width: 280px;
+            max-height: 60vh;
+            overflow: auto;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 14px;
+            box-shadow: var(--shadow-md);
+            z-index: 1050;
+            padding: 14px;
+        }
+        
+        .cart-panel h4 {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.06);
+            font-size: 0.95rem;
+        }
+        
+        .cart-item:last-child { border-bottom: none; }
+        
+        .cart-total {
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        
+        .cart-actions { display:flex; gap:8px; margin-top:10px; }
+        
+        .quick-bar {
+            position: fixed;
+            left: 0; right: 0; bottom: 0;
+            background: #fff;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 -6px 20px rgba(0,0,0,0.06);
+            z-index: 1100;
+            display: none;
+        }
+        
+        .quick-bar .actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+        
+        .quick-btn {
+            display:flex; align-items:center; justify-content:center;
+            padding: 12px; text-decoration:none; color:#000;
+        }
+        
+        .quick-btn i { margin-right: 8px; }
+        
+        @media (max-width: 768px) {
+            .quick-bar { display:block; }
+            .cart-panel { right: 10px; bottom: 90px; width: 92%; }
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            letter-spacing: 0.2px;
+        }
+        
+        .menu-price {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .menu-details {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            padding: 6px 0 12px;
+        }
+        
+        .menu-note {
+            text-align: center;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+        }
+        
+        .gallery-item {
+            display: block;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 14px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .gallery-item img:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-md);
+        }
+        
+        #gallery {
+            background:
+                radial-gradient(900px 420px at 10% 20%, rgba(255, 51, 102, 0.06), transparent 60%),
+                radial-gradient(900px 420px at 90% 80%, rgba(0, 200, 150, 0.06), transparent 60%),
+                linear-gradient(180deg, #ffffff 0%, #f9f9f9 100%);
+        }
+        
+        .social-embed {
+            background: var(--white);
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            padding: 20px;
+        }
+        
+        /* Animation for sections on scroll */
+        .section-hidden {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .section-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div id="site-loader" class="loader-overlay">
+        <div class="loader-content">
+            <img src="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" alt="MO-CO Kitchen Logo" class="loader-logo">
+        </div>
+    </div>
+    <a href="https://wa.me/26878015206?text=Hello%20MO-CO%20Kitchen,%20I%20want%20to%20order%20or%20book." class="whatsapp-float" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <img src="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" alt="MO-CO Kitchen Logo" class="logo-icon" style="height: 45px; width: auto;">
+                <div class="logo-text-container">
+                    <span class="logo-main-text">MO-CO KITCHEN</span>
+                    <span class="logo-subtitle">Sip bold with mo-co</span>
+                </div>
+            </a>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#cocktails">Cocktails</a></li>
+                    <li><a href="#mocktails">Mocktails</a></li>
+                    <li><a href="#recipes">Recipes</a></li>
+                    <li><a href="booking.html" class="nav-btn">Book Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section with Slideshow -->
+    <section id="home" class="hero">
+        <div class="slide-overlay"></div>
+        <div class="hero-content">
+            <h1>Sip Bold with MO-CO</h1>
+            <p>Established 2025 | Mbabane, Swaziland</p>
+            <p>Specializing in beautiful cocktails and mocktails for all occasions</p>
+            <a href="booking.html" class="cta-button">Book Our Services</a>
+        </div>
+        
+        <!-- 3D Element Container -->
+        <div id="three-container"></div>
+    </section>
+
+    <div class="cart-panel" id="cartPanel" style="display:none;">
+        <h4>Selected Items</h4>
+        <div id="cartItems"></div>
+        <div class="cart-total" id="cartTotal"></div>
+        <div class="cart-actions">
+            <a class="cta-button" id="sendCartWhatsApp" href="#">Send via WhatsApp</a>
+            <button class="menu-btn remove" id="clearCart">Clear</button>
+        </div>
+    </div>
+    
+    <div class="quick-bar">
+        <div class="actions">
+            <a class="quick-btn" href="tel:+26878015206"><i class="fas fa-phone"></i> Call</a>
+            <a class="quick-btn" href="https://wa.me/26878015206"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a class="quick-btn" href="booking.html"><i class="fas fa-calendar-check"></i> Book</a>
+        </div>
+    </div>
+
+    <!-- Location -->
+    <section id="location" class="section section-hidden">
+        <div class="container">
+            <h2 class="section-title">Find Us</h2>
+            <p class="section-subtitle" style="text-align:center;margin-bottom:30px;font-size:1.2rem;color:#666;">
+                Mbabane, Eswatini
+            </p>
+            <div class="social-embed">
+                <iframe
+                    src="https://www.google.com/maps?q=Mbabane,+Eswatini&output=embed"
+                    width="100%" height="420" style="border:0;border-radius:14px;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section section-hidden">
+        <div class="container">
+            <h2 class="section-title">Gallery</h2>
+            <p class="section-subtitle" style="text-align: center; margin-bottom: 40px; font-size: 1.2rem; color: #666;">
+                Moments from MO-CO Kitchen
+            </p>
+            <div class="gallery-grid">
+                <a class="gallery-item" href="https://ibb.co/JFKx4dB1" target="_blank" rel="noopener"><img src="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" alt="Gallery 1"></a>
+                <a class="gallery-item" href="https://ibb.co/nsR1CZgw" target="_blank" rel="noopener"><img src="https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg" alt="Gallery 2" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/V0cbG17Z" target="_blank" rel="noopener"><img src="https://i.ibb.co/Rdy3Z1H/IMG-20251224-WA0003.jpg" alt="Gallery 3" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/qL1zCkgF" target="_blank" rel="noopener"><img src="https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg" alt="Gallery 4" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/k2dnkQWT" target="_blank" rel="noopener"><img src="https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg" alt="Gallery 5" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/XxXpKkns" target="_blank" rel="noopener"><img src="https://i.ibb.co/Rdy3Z1H/IMG-20251224-WA0003.jpg" alt="Gallery 6" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/N2TjLG55" target="_blank" rel="noopener"><img src="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" alt="Gallery 7"></a>
+                <a class="gallery-item" href="https://ibb.co/wN0yxvPL" target="_blank" rel="noopener"><img src="https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg" alt="Gallery 8" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/V0JHzwRs" target="_blank" rel="noopener"><img src="https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg" alt="Gallery 9" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/GQchDdr5" target="_blank" rel="noopener"><img src="https://i.ibb.co/Rdy3Z1H/IMG-20251224-WA0003.jpg" alt="Gallery 10" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/BVrN2Yb8" target="_blank" rel="noopener"><img src="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" alt="Gallery 11"></a>
+                <a class="gallery-item" href="https://ibb.co/ccpxnKVz" target="_blank" rel="noopener"><img src="https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg" alt="Gallery 12" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/xtzTgZ2m" target="_blank" rel="noopener"><img src="https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg" alt="Gallery 13" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/4n5vXWVj" target="_blank" rel="noopener"><img src="https://i.ibb.co/Rdy3Z1H/IMG-20251224-WA0003.jpg" alt="Gallery 14" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/zV2GF7c3" target="_blank" rel="noopener"><img src="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" alt="Gallery 15"></a>
+                <a class="gallery-item" href="https://ibb.co/fdzV4cZv" target="_blank" rel="noopener"><img src="https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg" alt="Gallery 16" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/ZRsPc8m9" target="_blank" rel="noopener"><img src="https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg" alt="Gallery 17" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/Lz3578q7" target="_blank" rel="noopener"><img src="https://i.ibb.co/Rdy3Z1H/IMG-20251224-WA0003.jpg" alt="Gallery 18" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/d4mwc2Z7" target="_blank" rel="noopener"><img src="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" alt="Gallery 19"></a>
+                <a class="gallery-item" href="https://ibb.co/wFf0fsrv" target="_blank" rel="noopener"><img src="https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg" alt="Gallery 20" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/DDRtqPBW" target="_blank" rel="noopener"><img src="https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg" alt="Gallery 21" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/fVP5tDKx" target="_blank" rel="noopener"><img src="https://i.ibb.co/Rdy3Z1H/IMG-20251224-WA0003.jpg" alt="Gallery 22" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/k2qPHgmB" target="_blank" rel="noopener"><img src="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" alt="Gallery 23"></a>
+                <a class="gallery-item" href="https://ibb.co/RkHjMRgr" target="_blank" rel="noopener"><img src="https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg" alt="Gallery 24" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/Qhqqcg0" target="_blank" rel="noopener"><img src="https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg" alt="Gallery 25" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/Y7rFtc2Q" target="_blank" rel="noopener"><img src="https://i.ibb.co/Rdy3Z1H/IMG-20251224-WA0003.jpg" alt="Gallery 26" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/5XrYHkKn" target="_blank" rel="noopener"><img src="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" alt="Gallery 27"></a>
+                <a class="gallery-item" href="https://ibb.co/nsTND5kS" target="_blank" rel="noopener"><img src="https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg" alt="Gallery 28" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/83vFqR7" target="_blank" rel="noopener"><img src="https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg" alt="Gallery 29" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/Xf0nxQhT" target="_blank" rel="noopener"><img src="https://i.ibb.co/Rdy3Z1H/IMG-20251224-WA0003.jpg" alt="Gallery 30" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/21JPWSGW" target="_blank" rel="noopener"><img src="https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg" alt="Gallery 31" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+                <a class="gallery-item" href="https://ibb.co/LDnp8WSc" target="_blank" rel="noopener"><img src="https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg" alt="Gallery 32" loading="lazy" decoding="async" sizes="(max-width:768px) 100vw, 25vw"></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Feed -->
+    <section id="instagram" class="section section-hidden">
+        <div class="container">
+            <h2 class="section-title">Follow Us on Instagram</h2>
+            <p class="section-subtitle" style="text-align: center; margin-bottom: 30px; font-size: 1.2rem; color: #666;">
+                Fresh content from our events and creations
+            </p>
+            <div class="social-embed">
+                <div class="sk-instagram-feed" data-embed-id="25642885"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section section-hidden">
+        <div class="container">
+            <h2 class="section-title">Meet the CEO</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>The Visionary Behind MO-CO</h3>
+                    <p>Welcome to MO-CO Kitchen, where every sip tells a story. As the CEO and Founder, I am passionate about bringing the vibrant flavors of Swaziland to the world of mixology.</p>
+                    <p>Our mission is to create unforgettable experiences through our carefully crafted cocktails and mocktails, using only the finest local ingredients and innovative techniques.</p>
+                    <p>Whether it's a wedding, corporate event, or a private party, we bring the bar to you with style and elegance.</p>
+                </div>
+                <div class="about-images">
+                    <img src="https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg" alt="MO-CO CEO Landscape" class="about-img large">
+                    <img src="https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg" alt="MO-CO CEO Portrait 1" class="about-img">
+                    <img src="https://i.ibb.co/Rdy3Z1H/IMG-20251224-WA0003.jpg" alt="MO-CO CEO Portrait 2" class="about-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cocktails Section -->
+    <section id="cocktails" class="section section-hidden">
+        <div class="container">
+            <h2 class="section-title">COCKTAILS MENU</h2>
+            <div class="menu-section">
+                <h3 class="menu-heading">SPECIAL SELECTIONS</h3>
+                <div class="menu-block">
+                    <div class="menu-item"><span class="menu-name">P*RN STAR</span><span class="menu-price">E55</span><span class="menu-actions"><button class="menu-btn add" data-item="P*RN STAR" data-price="55">Add</button><button class="menu-btn remove" data-item="P*RN STAR">Remove</button></span></div>
+                    <div class="menu-details">vodka, passionade, sparkling, sprite</div>
+                    <div class="menu-item"><span class="menu-name">MOJITO</span><span class="menu-price">E60</span><span class="menu-actions"><button class="menu-btn add" data-item="MOJITO" data-price="60">Add</button><button class="menu-btn remove" data-item="MOJITO">Remove</button></span></div>
+                    <div class="menu-details">rum, lime, sparkling, mint</div>
+                    <div class="menu-item"><span class="menu-name">BLUE MOON</span><span class="menu-price">E60</span><span class="menu-actions"><button class="menu-btn add" data-item="BLUE MOON" data-price="60">Add</button><button class="menu-btn remove" data-item="BLUE MOON">Remove</button></span></div>
+                    <div class="menu-details">gin, blue caracao, cranberry, lime</div>
+                </div>
+                <h3 class="menu-heading">PREMIUM SELECTIONS</h3>
+                <div class="menu-block">
+                    <div class="menu-item"><span class="menu-name">BLUE BOOTY</span><span class="menu-price">E65</span><span class="menu-actions"><button class="menu-btn add" data-item="BLUE BOOTY" data-price="65">Add</button><button class="menu-btn remove" data-item="BLUE BOOTY">Remove</button></span></div>
+                    <div class="menu-details">rum, gin, orange juice, cranberry, lime</div>
+                    <div class="menu-item"><span class="menu-name">S*X ON THE BEACH</span><span class="menu-price">E65</span><span class="menu-actions"><button class="menu-btn add" data-item="S*X ON THE BEACH" data-price="65">Add</button><button class="menu-btn remove" data-item="S*X ON THE BEACH">Remove</button></span></div>
+                    <div class="menu-details">vodka, orange juice, cranberry, grenadine, lime</div>
+                    <div class="menu-item"><span class="menu-name">CALL ME A CAB</span><span class="menu-price">E75</span><span class="menu-actions"><button class="menu-btn add" data-item="CALL ME A CAB" data-price="75">Add</button><button class="menu-btn remove" data-item="CALL ME A CAB">Remove</button></span></div>
+                    <div class="menu-details">rum, pine juice, cranberry, blue caracao, sparkling</div>
+                    <div class="menu-item"><span class="menu-name">CRIMSON ISLAND</span><span class="menu-price">E80</span><span class="menu-actions"><button class="menu-btn add" data-item="CRIMSON ISLAND" data-price="80">Add</button><button class="menu-btn remove" data-item="CRIMSON ISLAND">Remove</button></span></div>
+                    <div class="menu-details">rum, pine juice, cranberry, blue caracao, sparkling</div>
+                </div>
+                <h3 class="menu-heading">MIXOLOGIST’S FIGHTER</h3>
+                <div class="menu-block">
+                    <div class="menu-item"><span class="menu-name">A-M-F</span><span class="menu-price">E95</span><span class="menu-actions"><button class="menu-btn add" data-item="A-M-F" data-price="95">Add</button><button class="menu-btn remove" data-item="A-M-F">Remove</button></span></div>
+                    <div class="menu-details">tequila, rum, vodka, gin, blue caracao, lime, sprite</div>
+                </div>
+                <div class="menu-note">EVENTS & ORDERS – 7801 5206 | 7901 5206</div>
+                <a href="https://wa.me/26878015206?text=Hello%20MO-CO%20Kitchen,%20I%20would%20like%20to%20order%20from%20the%20cocktails%20menu." class="cta-button" style="display:inline-block;margin-top:20px;">Order via WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mocktails Section -->
+    <section id="mocktails" class="section section-hidden" style="background-color: #ffffff;">
+        <div class="container">
+            <h2 class="section-title">Refreshing Mocktails</h2>
+            <p class="section-subtitle" style="text-align: center; margin-bottom: 40px; font-size: 1.2rem; color: #666;">
+                All the flavor without the alcohol - perfect for everyone to enjoy
+            </p>
+            <div class="drinks-container">
+                <!-- Mocktail cards will be dynamically added by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Online Ordering -->
+    <section id="order" class="section section-hidden">
+        <div class="container">
+            <h2 class="section-title">Order Online</h2>
+            <p class="section-subtitle" style="text-align: center; margin-bottom: 40px; font-size: 1.2rem; color: #666;">
+                Place an order directly via WhatsApp
+            </p>
+            <div class="booking-form">
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="order-item">Select Item</label>
+                        <select id="order-item" class="form-control" required>
+                            <option value="">Choose a cocktail</option>
+                            <option>P*RN STAR</option>
+                            <option>MOJITO</option>
+                            <option>BLUE MOON</option>
+                            <option>BLUE BOOTY</option>
+                            <option>S*X ON THE BEACH</option>
+                            <option>CALL ME A CAB</option>
+                            <option>CRIMSON ISLAND</option>
+                            <option>A-M-F</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-qty">Quantity</label>
+                        <input type="number" id="order-qty" class="form-control" min="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-notes">Notes</label>
+                        <textarea id="order-notes" class="form-control" placeholder="Add preparation notes or delivery instructions"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Order via WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bookings Section -->
+    <section id="bookings" class="section section-hidden">
+        <div class="container">
+            <h2 class="section-title">Book Our Services</h2>
+            <p class="section-subtitle" style="text-align: center; margin-bottom: 40px; font-size: 1.2rem; color: #666;">
+                Let us bring the MO-CO experience to your next event in Mbabane and beyond
+            </p>
+            <div class="booking-form">
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-date">Event Date</label>
+                        <input type="date" id="event-date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-type">Type of Event</label>
+                        <select id="event-type" class="form-control" required>
+                            <option value="">Select Event Type</option>
+                            <option value="wedding">Wedding</option>
+                            <option value="corporate">Corporate Event</option>
+                            <option value="birthday">Birthday Party</option>
+                            <option value="private">Private Party</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">Number of Guests</label>
+                        <input type="number" id="guests" class="form-control" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Additional Information</label>
+                        <textarea id="message" class="form-control" placeholder="Tell us about your event and any special requirements..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Booking Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipes Section -->
+    <section id="recipes" class="section section-hidden">
+        <div class="container">
+            <h2 class="section-title">Our Signature Recipes</h2>
+            <p class="section-subtitle" style="text-align: center; margin-bottom: 40px; font-size: 1.2rem; color: #666;">
+                Try making some of our most popular drinks at home
+            </p>
+            <div class="recipes-container">
+                <!-- Recipe cards will be dynamically added by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo" style="display: flex; align-items: center;">
+                        <img src="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" alt="MO-CO Kitchen Logo" style="height: 50px; width: auto; margin-right: 15px;">
+                        MO-CO KITCHEN
+                    </div>
+                    <p class="footer-about">Established in 2025, MO-CO KITCHEN brings innovative mixology to Swaziland. We specialize in creating beautiful cocktails and mocktails that excite the senses and elevate any occasion.</p>
+            <div class="social-links">
+                <a href="https://wa.me/26878015206" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.facebook.com/share/14Ru5X2VEZa/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/moco_kitchen_sz?igsh=cWZ5Z3FvM3B0YWV6" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+                </div>
+                <div class="footer-contact">
+                    <h3 style="color: white; margin-bottom: 20px; font-size: 1.5rem;">Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Mbabane, Swaziland</p>
+                    <p><i class="fas fa-phone"></i> +268 7801 5206</p>
+                    <p><i class="fas fa-phone"></i> +268 7901 5206</p>
+                    <p><i class="fas fa-envelope"></i> Enquiry@mocokitchen.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 10:00 AM - 12:00 AM</p>
+                </div>
+                <div class="footer-newsletter">
+                    <h3 style="color: white; margin-bottom: 20px; font-size: 1.5rem;">Stay Updated</h3>
+                    <p style="color: #aaa; margin-bottom: 20px;">Subscribe to get updates on new drinks and special offers.</p>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Your email address" style="margin-bottom: 15px;">
+                        <button class="submit-btn" style="width: 100%; margin: 0;">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 MO-CO KITCHEN. All rights reserved. | Sip bold with mo-co</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data for cocktails, mocktails, and recipes
+        const cocktails = [
+            {
+                name: "Mbabane Mule",
+                type: "cocktail",
+                description: "A Swazi twist on the classic Moscow Mule with local ginger and lime.",
+                ingredients: "Vodka, fresh ginger, lime juice, mint, soda water",
+                image: "https://images.unsplash.com/photo-1575023782549-62ca0d244b39?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                name: "Sip Bold Sunset",
+                type: "cocktail",
+                description: "A vibrant tequila-based cocktail with pomegranate and orange flavors.",
+                ingredients: "Tequila, orange liqueur, pomegranate juice, lime, agave syrup",
+                image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                name: "Royal Swazi Gin Fizz",
+                type: "cocktail",
+                description: "A refreshing gin cocktail with local botanicals and citrus notes.",
+                ingredients: "Gin, lemon juice, simple syrup, egg white, soda water",
+                image: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                name: "African Mojito",
+                type: "cocktail",
+                description: "Traditional mojito with a touch of African rum and fresh sugarcane.",
+                ingredients: "African rum, mint, lime, sugarcane syrup, soda water",
+                image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                name: "King's Whiskey Sour",
+                type: "cocktail",
+                description: "A smooth whiskey sour with a hint of marula fruit from Southern Africa.",
+                ingredients: "Bourbon, lemon juice, marula syrup, egg white, bitters",
+                image: "https://images.unsplash.com/photo-1605270012917-bf157c5a9541?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            },
+            {
+                name: "Tropical Espresso Martini",
+                type: "cocktail",
+                description: "Coffee cocktail with tropical notes of coconut and pineapple.",
+                ingredients: "Vodka, coffee liqueur, espresso, coconut cream, pineapple syrup",
+                image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+            }
+        ];
+
+        const mocktails = [
+            {
+                name: "Virgin Safari Sunrise",
+                type: "mocktail",
+                description: "A beautiful layered mocktail with grenadine, orange, and pineapple juices.",
+                ingredients: "Orange juice, pineapple juice, grenadine, lime, soda water",
+                image: "https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg"
+            },
+            {
+                name: "MO-CO Sparkler",
+                type: "mocktail",
+                description: "Elderflower and citrus blend with a sparkling finish.",
+                ingredients: "Elderflower cordial, lime juice, grapefruit soda, mint, berries",
+                image: "https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg"
+            },
+            {
+                name: "Tropical Ginger Fizz",
+                type: "mocktail",
+                description: "Spicy ginger beer combined with tropical fruit juices.",
+                ingredients: "Ginger beer, mango puree, lime juice, passion fruit syrup",
+                image: "https://i.ibb.co/Rdy3Z1H/IMG-20251224-WA0003.jpg"
+            },
+            {
+                name: "Berry Bliss",
+                type: "mocktail",
+                description: "A antioxidant-rich blend of mixed berries and citrus.",
+                ingredients: "Mixed berries, lemon juice, honey syrup, soda water",
+                image: "https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg"
+            },
+            {
+                name: "Citrus Mint Cooler",
+                type: "mocktail",
+                description: "Refreshing mix of citrus fruits with fresh mint.",
+                ingredients: "Orange, lemon, lime juices, mint, simple syrup, soda water",
+                image: "https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg"
+            },
+            {
+                name: "Coconut Pineapple Refresher",
+                type: "mocktail",
+                description: "Creamy coconut with tangy pineapple for a tropical treat.",
+                ingredients: "Coconut water, pineapple juice, lime, agave syrup",
+                image: "https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg"
+            }
+        ];
+
+        const recipes = [
+            {
+                name: "Mbabane Mule",
+                type: "cocktail",
+                ingredients: [
+                    "2 oz Vodka",
+                    "1 oz Fresh ginger syrup",
+                    "0.75 oz Fresh lime juice",
+                    "4-5 Mint leaves",
+                    "Soda water to top",
+                    "Lime wheel and mint sprig for garnish"
+                ],
+                steps: [
+                    "Muddle mint leaves gently in a copper mug or highball glass.",
+                    "Add vodka, ginger syrup, and lime juice.",
+                    "Fill the glass with ice and stir gently.",
+                    "Top with soda water and garnish with lime wheel and mint sprig."
+                ]
+            },
+            {
+                name: "Virgin Safari Sunrise",
+                type: "mocktail",
+                ingredients: [
+                    "3 oz Orange juice",
+                    "1 oz Pineapple juice",
+                    "0.5 oz Grenadine syrup",
+                    "0.5 oz Fresh lime juice",
+                    "Soda water to top",
+                    "Orange slice and cherry for garnish"
+                ],
+                steps: [
+                    "Fill a highball glass with ice.",
+                    "Pour orange juice and pineapple juice over the ice.",
+                    "Slowly pour grenadine down the side of the glass to create a sunrise effect.",
+                    "Top with soda water and garnish with orange slice and cherry."
+                ]
+            },
+            {
+                name: "Sip Bold Sunset",
+                type: "cocktail",
+                ingredients: [
+                    "1.5 oz Tequila",
+                    "0.5 oz Orange liqueur",
+                    "2 oz Pomegranate juice",
+                    "0.75 oz Fresh lime juice",
+                    "0.5 oz Agave syrup",
+                    "Lime wheel and pomegranate seeds for garnish"
+                ],
+                steps: [
+                    "Fill a shaker with ice.",
+                    "Add all ingredients and shake vigorously for 15 seconds.",
+                    "Strain into a rocks glass filled with ice.",
+                    "Garnish with lime wheel and pomegranate seeds."
+                ]
+            }
+        ];
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('nav');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                nav.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (nav.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            // Close menu when clicking a link
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.addEventListener('click', () => {
+                    nav.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
+        }
+
+        // Initialize Three.js 3D element
+        function init3DScene() {
+            const container = document.getElementById('three-container');
+            if (!container) return;
+
+            // Create scene
+            const scene = new THREE.Scene();
+            
+            // Create camera
+            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 8;
+            camera.position.y = 0;
+            camera.lookAt(0, 0, 0);
+            
+            // Create renderer
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+            
+            // Group to hold everything
+            const cocktailGroup = new THREE.Group();
+            scene.add(cocktailGroup);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
+            
+            const pointLight = new THREE.PointLight(0xffffff, 0.5, 100);
+            pointLight.position.set(5, 5, 5);
+            scene.add(pointLight);
+
+            // Removed hero image cutout; keep ambient particles only
+
+            // Add Bubbles/Particles for atmosphere
+            const particlesGeo = new THREE.BufferGeometry();
+            const particleCount = 60;
+            const posArray = new Float32Array(particleCount * 3);
+            
+            for(let i=0; i<particleCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 6; // Spread out more
+            }
+            
+            particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const particlesMat = new THREE.PointsMaterial({
+                size: 0.08,
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.6
+            });
+            const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+            cocktailGroup.add(particlesMesh);
+
+            // Animation Loop
+            let time = 0;
+            function animate() {
+                requestAnimationFrame(animate);
+                time += 0.01;
+                
+                // Float animation
+                cocktailGroup.position.y = Math.sin(time) * 0.1;
+                
+                // Gentle rotation if no mouse interaction
+                // cocktailGroup.rotation.y = Math.sin(time * 0.5) * 0.05;
+                
+                // Animate bubbles
+                const positions = particlesMesh.geometry.attributes.position.array;
+                for(let i=1; i<particleCount * 3; i+=3) {
+                    positions[i] += 0.01;
+                    if(positions[i] > 3) positions[i] = -3;
+                }
+                particlesMesh.geometry.attributes.position.needsUpdate = true;
+
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+
+            // Interactive Parallax
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                const mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+                
+                // Smoothly interpolate rotation
+                cocktailGroup.rotation.x = mouseY * 0.2;
+                cocktailGroup.rotation.y = mouseX * 0.2;
+            });
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                renderer.setSize(width, height);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            });
+        }
+
+        // Slideshow functionality
+        function initSlideshow() {
+            const slides = document.querySelectorAll('.slide');
+            if (!slides || slides.length === 0) return;
+            let currentSlide = 0;
+            
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[index].classList.add('active');
+            }
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            
+            // Change slide every 5 seconds
+            setInterval(nextSlide, 5000);
+        }
+
+        // Populate drink cards
+        function populateDrinkCards() {
+            const mocktailsContainer = document.querySelector('#mocktails .drinks-container');
+
+            // Add mocktails
+            mocktails.forEach((mocktail, index) => {
+                const card = createDrinkCard(mocktail, index);
+                mocktailsContainer.appendChild(card);
+            });
+        }
+        
+        function createDrinkCard(drink, index) {
+            const card = document.createElement('div');
+            card.className = 'drink-card glass-effect';
+            // Inline styles for animation
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            card.style.transitionDelay = `${index * 150}ms`;
+            
+            // Trigger animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            observer.observe(card);
+            
+            card.innerHTML = `
+                <div class="drink-image" style="background-image: url('${drink.image}')"></div>
+                <div class="drink-content">
+                    <h3 class="drink-name">${drink.name}</h3>
+                    <span class="drink-type ${drink.type === 'cocktail' ? 'cocktail-type' : 'mocktail-type'}">
+                        ${drink.type === 'cocktail' ? 'Cocktail' : 'Mocktail'}
+                    </span>
+                    <p class="drink-description">${drink.description}</p>
+                    <p class="drink-ingredients"><strong>Ingredients:</strong> ${drink.ingredients}</p>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Populate recipe cards
+        function populateRecipeCards() {
+            const recipesContainer = document.querySelector('#recipes .recipes-container');
+            
+            recipes.forEach((recipe, index) => {
+                const card = document.createElement('div');
+                card.className = 'recipe-card glass-effect';
+                
+                // Animation styles
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                card.style.transitionDelay = `${index * 150}ms`;
+
+                // Observer
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                            }, 100);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(card);
+                
+                const ingredientsList = recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('');
+                const stepsList = recipe.steps.map((step, index) => `<li>${step}</li>`).join('');
+                
+                card.innerHTML = `
+                    <h3 class="recipe-title">${recipe.name} <span style="font-size: 1rem; color: ${recipe.type === 'cocktail' ? '#ff3366' : '#00c896'}">(${recipe.type === 'cocktail' ? 'Cocktail' : 'Mocktail'})</span></h3>
+                    <div class="recipe-ingredients">
+                        <h4>Ingredients</h4>
+                        <ul>${ingredientsList}</ul>
+                    </div>
+                    <div class="recipe-steps">
+                        <h4>Preparation</h4>
+                        <ol>${stepsList}</ol>
+                    </div>
+                `;
+                
+                recipesContainer.appendChild(card);
+            });
+        }
+
+        // Form submission
+        function setupForm() {
+            const bookingForm = document.getElementById('bookingForm');
+            const orderForm = document.getElementById('orderForm');
+            const cartPanel = document.getElementById('cartPanel');
+            const cartItemsEl = document.getElementById('cartItems');
+            const cartTotalEl = document.getElementById('cartTotal');
+            const sendCartWhatsApp = document.getElementById('sendCartWhatsApp');
+            const clearCartBtn = document.getElementById('clearCart');
+            let cart = JSON.parse(localStorage.getItem('moco_cart') || '[]');
+            
+            function renderCart() {
+                if (!cartPanel) return;
+                if (cart.length === 0) {
+                    cartPanel.style.display = 'none';
+                    return;
+                }
+                cartPanel.style.display = 'block';
+                cartItemsEl.innerHTML = cart.map(item => `<div class="cart-item"><span>${item.name}</span><span>E${item.price}</span></div>`).join('');
+                const total = cart.reduce((sum, i) => sum + i.price, 0);
+                cartTotalEl.textContent = `Total: E${total}`;
+                localStorage.setItem('moco_cart', JSON.stringify(cart));
+            }
+            
+            function addToCart(name, price) {
+                cart.push({ name, price });
+                renderCart();
+            }
+            
+            function removeFromCart(name) {
+                cart = cart.filter(i => i.name !== name);
+                renderCart();
+            }
+            
+            document.querySelectorAll('.menu-btn.add').forEach(btn => {
+                btn.addEventListener('click', () => addToCart(btn.dataset.item, Number(btn.dataset.price)));
+            });
+            document.querySelectorAll('.menu-btn.remove').forEach(btn => {
+                btn.addEventListener('click', () => removeFromCart(btn.dataset.item));
+            });
+            
+            if (sendCartWhatsApp) {
+                sendCartWhatsApp.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const lines = cart.map(i => `${i.name} - E${i.price}`).join('%0A');
+                    const waMsg = encodeURIComponent(`Selected Items:%0A${lines}%0A%0ATotal: E${cart.reduce((s, i)=>s+i.price,0)}`);
+                    const waUrl = `https://wa.me/26878015206?text=${waMsg}`;
+                    window.open(waUrl, '_blank');
+                });
+            }
+            if (clearCartBtn) {
+                clearCartBtn.addEventListener('click', () => { cart = []; renderCart(); });
+            }
+            renderCart();
+            
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const eventDate = document.getElementById('event-date').value;
+                const eventType = document.getElementById('event-type').value;
+                const guests = document.getElementById('guests').value;
+                const message = document.getElementById('message').value;
+                const waMsg = encodeURIComponent(`Booking Request\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nDate: ${eventDate}\nType: ${eventType}\nGuests: ${guests}\nNotes: ${message}`);
+                const waUrl = `https://wa.me/26878015206?text=${waMsg}`;
+                window.open(waUrl, '_blank');
+                bookingForm.reset();
+            });
+            
+            if (orderForm) {
+                orderForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const item = document.getElementById('order-item').value;
+                    const qty = document.getElementById('order-qty').value;
+                    const notes = document.getElementById('order-notes').value;
+                    const waMsg = encodeURIComponent(`Order Request\nItem: ${item}\nQuantity: ${qty}\nNotes: ${notes}`);
+                    const waUrl = `https://wa.me/26878015206?text=${waMsg}`;
+                    window.open(waUrl, '_blank');
+                    orderForm.reset();
+                });
+            }
+        }
+
+        // Scroll animations for sections
+        function setupScrollAnimations() {
+            const sections = document.querySelectorAll('.section-hidden');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('section-visible');
+                    }
+                });
+            }, observerOptions);
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Also add smooth scrolling to the CTA button
+            const ctaButton = document.querySelector('.cta-button');
+            if (ctaButton) {
+                ctaButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('site-loader');
+            if (loader) {
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.remove();
+                    }, 400);
+                }, 800);
+            }
+            initSlideshow();
+            init3DScene();
+            populateDrinkCards();
+            populateRecipeCards();
+            setupForm();
+            setupScrollAnimations();
+            setupSmoothScrolling();
+            
+            const transitionOverlay = document.createElement('div');
+            transitionOverlay.className = 'page-transition';
+            document.body.appendChild(transitionOverlay);
+            function goWithTransition(url) {
+                transitionOverlay.style.pointerEvents = 'auto';
+                transitionOverlay.style.opacity = '1';
+                setTimeout(() => { window.location.href = url; }, 300);
+            }
+            document.querySelectorAll('a[href="booking.html"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    goWithTransition('booking.html');
+                });
+            });
+            
+            // Initialize some sections as visible on page load
+            const heroSection = document.getElementById('home');
+            if (heroSection) {
+                heroSection.classList.remove('section-hidden');
+                heroSection.classList.add('section-visible');
+            }
+        });
+    </script>
+    <script src="https://widgets.sociablekit.com/instagram-feed/widget.js" defer></script>
+</body>
+</html>

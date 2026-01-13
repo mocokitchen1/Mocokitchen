@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MO-CO KITCHEN | Global Booking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #ff3366;
+            --secondary-color: #00c896;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --white: #ffffff;
+            --glass-border: rgba(255,255,255,0.3);
+            --shadow-md: 0 10px 30px rgba(0,0,0,0.12);
+            --shadow-lg: 0 20px 50px rgba(0,0,0,0.18);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        .header-content { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
+        .logo { display:flex; align-items:center; gap:12px; text-decoration:none; color: var(--text-dark); font-size: 1.6rem; font-family: 'Dancing Script', cursive; }
+        .logo img { height: 40px; width: auto; }
+        .hero {
+            position: relative;
+            min-height: 72vh;
+            display: grid;
+            place-items: center;
+            padding: 60px 0;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(1000px 500px at 15% 20%, rgba(255, 51, 102, 0.08), transparent 60%),
+                radial-gradient(900px 450px at 85% 80%, rgba(0, 200, 150, 0.08), transparent 60%),
+                linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.75) 100%),
+                url('https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg') center/cover no-repeat;
+        }
+        .hero-content {
+            position: relative; z-index: 2; text-align:center; max-width: 820px; padding: 0 16px;
+        }
+        .hero h1 { font-family:'Dancing Script', cursive; font-size: 4rem; }
+        .hero p { color: var(--text-light); margin-top: 8px; }
+        .hero-cta { margin-top: 24px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+        .btn {
+            display:inline-block; padding:12px 22px; border-radius: 999px; text-decoration:none; font-weight:600;
+        }
+        .btn-primary { background: var(--primary-color); color:#fff; box-shadow: 0 10px 20px rgba(255,51,102,0.35); }
+        .btn-outline { border:2px solid var(--primary-color); color: var(--primary-color); }
+        .grid {
+            display:grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px;
+        }
+        .card {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            padding: 20px;
+        }
+        .card h3 { font-size: 1.4rem; margin-bottom: 10px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display:block; font-weight:600; margin-bottom: 6px; }
+        .form-control {
+            width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(0,0,0,0.08);
+            background:#fff; outline:none;
+        }
+        .submit-btn {
+            display:block; width:100%; margin-top:12px;
+            background: var(--primary-color); color:#fff; padding:14px; border:none; border-radius:14px; font-weight:700;
+            box-shadow: 0 10px 20px rgba(255,51,102,0.35);
+        }
+        .features { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-top:30px; }
+        .feature {
+            background:#fff; border:1px solid rgba(0,0,0,0.06); border-radius:14px; padding:16px; box-shadow: var(--shadow-md);
+        }
+        .feature i { color: var(--primary-color); margin-right:8px; }
+        footer { padding: 40px 0 30px; text-align:center; color: var(--text-light); }
+        @media (max-width: 992px) {
+            .grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3rem; }
+        }
+        @media (max-width: 576px) {
+            .hero h1 { font-size: 2.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a class="logo" href="index.html">
+                <img src="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" alt="MO-CO Kitchen Logo">
+                <span>MO-CO KITCHEN</span>
+            </a>
+            <div class="social-links" style="display:flex; gap:10px;">
+                <a href="https://wa.me/26878015206" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.facebook.com/share/14Ru5X2VEZa/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/moco_kitchen_sz?igsh=cWZ5Z3FvM3B0YWV6" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Book MO-CO Worldwide</h1>
+            <p>Premium mobile mixology for weddings, corporate events, private parties and more.</p>
+            <div class="hero-cta">
+                <a href="#booking" class="btn btn-primary">Start Booking</a>
+                <a href="https://wa.me/26878015206?text=Hi%20MO-CO%2C%20I%20want%20to%20book%20worldwide%20services" class="btn btn-outline">Chat on WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="container" style="padding: 40px 0 60px;">
+        <div class="grid">
+            <div class="card">
+                <h3>Booking Details</h3>
+                <form id="globalBookingForm">
+                    <div class="form-group">
+                        <label for="gb-name">Full Name</label>
+                        <input id="gb-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gb-email">Email Address</label>
+                        <input id="gb-email" type="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gb-phone">Phone Number</label>
+                        <input id="gb-phone" type="tel" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gb-location">Event Location (City, Country)</label>
+                        <input id="gb-location" class="form-control" placeholder="e.g., Nairobi, Kenya" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gb-date">Event Date</label>
+                        <input id="gb-date" type="date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gb-type">Event Type</label>
+                        <select id="gb-type" class="form-control" required>
+                            <option value="">Select Event Type</option>
+                            <option>Wedding</option>
+                            <option>Corporate Event</option>
+                            <option>Birthday Party</option>
+                            <option>Festival</option>
+                            <option>Private Party</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="gb-guests">Estimated Guests</label>
+                        <input id="gb-guests" type="number" min="1" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gb-notes">Notes and Special Requests</label>
+                        <textarea id="gb-notes" class="form-control" rows="4" placeholder="Tell us what vibe you want, signature drinks, etc."></textarea>
+                    </div>
+                    <button class="submit-btn" type="submit">Send Booking via WhatsApp</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3>What You Get</h3>
+                <div class="features">
+                    <div class="feature"><i class="fas fa-martini-glass"></i> Signature cocktails & mocktails</div>
+                    <div class="feature"><i class="fas fa-truck"></i> Mobile bar setup worldwide</div>
+                    <div class="feature"><i class="fas fa-users"></i> Professional mixologists team</div>
+                    <div class="feature"><i class="fas fa-music"></i> Curated ambience and vibe</div>
+                    <div class="feature"><i class="fas fa-shield-heart"></i> Safe and top-quality service</div>
+                    <div class="feature"><i class="fas fa-calendar-check"></i> Tailored packages for events</div>
+                </div>
+                <div style="margin-top:18px; text-align:center;">
+                    <a class="btn btn-outline" href="https://wa.me/26878015206?text=Hi%20MO-CO%2C%20please%20share%20worldwide%20booking%20packages">Request Packages</a>
+                </div>
+                <div style="margin-top:18px;">
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap:12px;">
+                        <img src="https://i.ibb.co/rKBhvmxc/IMG-20251224-WA0007.jpg" alt="MO-CO event" style="width:100%; border-radius:12px;" loading="lazy" decoding="async">
+                        <img src="https://i.ibb.co/R4s3kFnF/IMG-20251224-WA0002.jpg" alt="MO-CO drink" style="width:100%; border-radius:12px;" loading="lazy" decoding="async">
+                        <img src="https://i.ibb.co/Rdy3Z1H/IMG-20251224-WA0003.jpg" alt="MO-CO mixology" style="width:100%; border-radius:12px;" loading="lazy" decoding="async">
+                        <img src="https://i.ibb.co/RTgRjwt3/IMG-20251224-WA0001.jpg" alt="MO-CO brand" style="width:100%; border-radius:12px;" loading="lazy" decoding="async">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 MO-CO KITCHEN | Worldwide bookings: +268 7801 5206 | +268 7901 5206</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('globalBookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('gb-name').value;
+            const email = document.getElementById('gb-email').value;
+            const phone = document.getElementById('gb-phone').value;
+            const location = document.getElementById('gb-location').value;
+            const date = document.getElementById('gb-date').value;
+            const type = document.getElementById('gb-type').value;
+            const guests = document.getElementById('gb-guests').value;
+            const notes = document.getElementById('gb-notes').value;
+            const waMsg = encodeURIComponent(`Worldwide Booking\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nLocation: ${location}\nDate: ${date}\nType: ${type}\nGuests: ${guests}\nNotes: ${notes}`);
+            const waUrl = `https://wa.me/26878015206?text=${waMsg}`;
+            window.open(waUrl, '_blank');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
